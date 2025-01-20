@@ -8,7 +8,6 @@ import (
 
 func main() {
 	svr := api.NewServer(new(HelloImpl))
-
 	err := svr.Run()
 
 	if err != nil {
