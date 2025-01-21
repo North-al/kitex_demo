@@ -6,9 +6,16 @@ import (
 )
 
 func main() {
-	svr := item.NewServer(new(ItemServiceImpl))
+	itemServiceImpl := new(ItemServiceImpl)
+	stockCli, err := NewStockClient("0.0.0.0:8889")
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-	err := svr.Run()
+	itemServiceImpl.stockCli = stockCli
+	svr := item.NewServer(itemServiceImpl)
+
+	err = svr.Run()
 
 	if err != nil {
 		log.Println(err.Error())
